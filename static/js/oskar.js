@@ -16,80 +16,6 @@ d3.csv("oskar_data.csv", function (data) {
     var age_map = data.map( function (i) { return parseInt(i.age); } );
     var age_chart_info = makeChartNumbers(data,"age",d3.max(age_map),"#age")
 
-    //// based on the values found define the bins so that there always are 100 bins
-    //var age_bin_width = d3.max(age_map)/50;
-    //var age_bins = [];
-    //for (var i = 0; i < d3.max(age_map)+1; i=i+age_bin_width) {
-    //    age_bins.push(i);
-    //}
-    //
-    //// get the histogram
-    //var age_histogram = d3.layout.histogram()
-    //    .bins(age_bins)
-    //    (age_map);
-    //
-    //// create the scales for the x and y axes for the age histogram
-    //var age_y = d3.scale.linear()
-    //    .domain([0, d3.max(age_histogram.map( function (i) { return i.length; } ) )])
-    //    .range([height-move_down, 0]);
-    //
-    //var age_x = d3.scale.linear()
-    //    .domain([0, d3.max(age_map)])
-    //    .range([0, width-move_left]);
-    //        
-    //var age_xAxis = d3.svg.axis()
-    //    .scale(age_x)
-    //    .orient("bottom");
-    //
-    //var age_yAxis = d3.svg.axis()
-    //    .scale( age_y )
-    //    .orient("left");
-    //
-    //// define the image canvas to paint on
-    //var age_canvas = d3.select("#age").append("svg")
-    //    .attr("width",width)
-    //    .attr("height",height + padding )
-    //    .append("g")
-    //        .attr( "transform", "translate( " + move_left + " ,  " + move_down + "  )" ) ;
-    //        
-    //// add x axis text
-    //var group = age_canvas.append("g")
-    //    .attr("transform","translate(0," + (height-move_down) + ")" )
-    //    .style({ 'stroke': 'Black', 'fill': 'none', 'stroke-width': '1px'})
-    //    .call(age_xAxis)
-    //    .selectAll("text")
-    //        .attr("y", 0)
-    //        .attr("x", 9)
-    //        .attr("dy", ".35em")
-    //        .attr("transform", "rotate(90)")
-    //        .style("text-anchor", "start");
-    //
-    //// add y axis text
-    //var group2 = age_canvas.append("g")
-    //    .style({ 'stroke': 'Black', 'fill': 'none', 'stroke-width': '1px'})
-    //    .call(age_yAxis);
-    //
-    //// add the bars for the bins in the histogram
-    //var age_bars = age_canvas.selectAll("rect")
-    //    .data(age_histogram)
-    //    .enter()
-    //    .append("svg:rect")
-    //        .attr("class","ageBar")
-    //        .attr("x", function (d) { return age_x(d.x) } )
-    //        .attr("y", function (d) { return age_y(d.y) } )
-    //        .attr("width", function (d) { return age_x(d.dx) } )
-    //        .attr("height", function (d) { return age_y(0) - age_y(d.y) } );
-    //    
-    //var age_chart_info.brush = d3.svg.brush()
-    //    .x(age_x)
-    //    .on("brushend", brushed);
-    //
-    //var gBrush = age_canvas.append("g")
-    //    .call(age_chart_info.brush)
-    //    .selectAll("rect")
-    //        .attr("y", height-300)
-    //        .attr("height", 300);
-
 //############# another graph ###################
 
     var sex_map = data.map( function (i) { return i.sex; } );
@@ -200,30 +126,6 @@ d3.csv("oskar_data.csv", function (data) {
         age_map = brushFilter(age_map,tas_chart_info.brush.extent(),"timeAtSea")
         age_map = age_map.map( function (i) { return parseInt(i.age); } )
         updateChartNumbers(age_chart_info , age_map)
-            
-        //// get the histogram data
-        //var age_histogram = d3.layout.histogram()
-        //    .bins(age_chart_info.bins)
-        //    (age_map)
-        //    
-        //// update the axes max values
-        //age_y.domain([0, d3.max(age_histogram.map( function (i) { return i.length; } ) )])
-        ////age_x.domain([0, age_map_max]) // shouldn't change currently only have a lower cutoff
-        //
-        //// make the y axis transition
-        //group2.transition()
-        //    .duration(1000)
-        //    .call(age_yAxis);
-        //
-        //// repaint the bars with the new histogram data
-        //age_canvas.selectAll("rect")
-        //        .data(age_histogram)
-        //        .transition()
-        //            .duration(1000)
-        //            //.attr("x", function (d) { return age_x(d.x) } )
-        //            .attr("y", function (d) { return age_y(d.y) } )
-        //            //.attr("width", function (d) { return age_x(d.dx) } )
-        //            .attr("height", function (d) { return age_y(0) - age_y(d.y) } )
 
         var sex_map = data
         var sex_map_unfiltered = data.map( function (i) { return i.sex; } );
