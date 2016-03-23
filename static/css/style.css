@@ -29,15 +29,28 @@
             /*width:100%;*/
             /*width:100vw;*/
     }
-    #page_row_2 {
-        clear: both
+    .div_line {
             /*position:absolute;*/
             /*top:0;*/
             /*left:0;*/
-            /*width:100%;*/
+            background-color:darkgray;
+            height:2px;
+            width:100%;
             /*width:100vw;*/
     }
+    #page_row_2 {
+        clear: both
+    }
 
+    #currentFilters {
+        padding: 20px;
+        font: 16px sans-serif;
+    }
+
+    #page_row_3 {
+        clear: both
+    }
+    
     #age {
         padding:0px;
         float:left;
@@ -58,13 +71,165 @@
         float:left;
         font: 10px sans-serif;
     }
+    #year {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #civilstatus {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #ships {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+
+
+    #q1 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q2 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q3 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q4_1 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q4_2 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q4_3 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q5_1 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q5_2 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q5_3 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q6_1 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q6_2 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q6_3 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q7_1 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q7_2 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q7_3 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q8_1 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q8_2 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q8_3 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q9 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q10 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q11 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q12_1 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q12_2 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q12_3 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q13 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q14 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
+    #q15 {
+        padding:0px;
+        float:left;
+        font: 10px sans-serif;
+    }
     
     rect {
         fill: steelblue;
     }
-    #sex rect:hover {
+/*    #sex rect:hover {
         fill: black ;
-    }
+    }*/
     .extent {
         fill: grey;
         fill-opacity: 0.3;

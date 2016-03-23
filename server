@@ -21,7 +21,7 @@ app = Flask(
 
 @app.route("/")
 def start():
-    return """
+    page = """
 <html>
     <head>
         <title>PHP Test</title>
@@ -29,17 +29,33 @@ def start():
     </head>
     <body>
         <div id="page_row_1">
-            <div id="sex">Sex:<br></div><div id="age">Age:<br></div>
+            <span>FILTERS:</span><br>
+            <div class="div_line"></div><br>
+            <div id="sex">Sex:<br></div>
+            <div id="age">Age:<br></div>
+            <div id="timeatsea">Time at Sea:<br></div>
+            <div id="department">Department:<br></div>
         </div>
         <div id="page_row_2">
-            <div id="timeatsea">Time at Sea:<br></div><div id="department">Department:<br></div>
-        </div>        <br>
+            <div id="year">Year:<br></div>
+            <div id="civilstatus">civilstatus:<br></div>
+            <div id="ships">ships:<br></div>
+            <div id="currentFilters">Currently selected filters:<p>no cutoff selected</p></div>
+        </div>
+        <div id="page_row_3">
+            <span>QUESTION ANSWERS:</span><br>
+            <div class="div_line"></div><br>
+"""+''.join('<div id="'+qid+'">Question '+qid+':<br></div>' for qid in ['q1','q2','q3','q4_1','q4_2','q4_3','q5_1','q5_2','q5_3','q6_1','q6_2','q6_3','q7_1','q7_2','q7_3','q8_1','q8_2','q8_3','q9','q10','q11','q12_1','q12_2','q12_3','q13','q14','q15' ])+"""
+        </div>
+        
+        <br>
+
 
         <script src="static/js/d3/d3.js"></script>
-
         <script src='static/js/oskar.js'></script>
     </body>
 </html>"""
+    return page
 #        <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
 @app.route("/oskar_data.csv")
