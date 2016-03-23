@@ -44,7 +44,13 @@
 
     #currentFilters {
         padding: 20px;
-        font: 16px sans-serif;
+        font: 10px sans-serif;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 160;
+        border: 1px solid black;
+        background-color:white
     }
 
     #page_row_3 {
