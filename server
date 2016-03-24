@@ -21,6 +21,36 @@ app = Flask(
 
 @app.route("/")
 def start():
+    qs1 = ['q1','q2','q3','q4_1','q4_2','q4_3','q5_1','q5_2','q5_3','q6_1','q6_2','q6_3','q7_1','q7_2','q7_3','q8_1','q8_2','q8_3','q9','q10','q11','q12_1','q12_2','q12_3','q13','q14','q15' ]
+    qs2 = {
+        'q1':'Hur ma?nga dagar tra?nar du i genomsnitt pa? en vecka na?r du befinner dig ombord?',
+        'q2':'Upplever du att fysisk aktivitet bidrar till att minska upplevelsen av social isolering och ensamhet ombord?',
+        'q3':'Har du haft bra tillga?ng till modern kommunikation ombord, tex internet?',
+        'q4_1':'Hur har din relation till din handledare varit under den fartygsfo?rlagda praktiken?',
+        'q4_2':'',
+        'q4_3':'',
+        'q5_1':'Hur har du upplevt ma?ngden och kvalite?n pa? arrangerade sociala aktiviteter ombord, tex fotboll?',
+        'q5_2':'',
+        'q5_3':'',
+        'q6_1':'Har befa?lhavaren aktivt arbetat fo?r att fra?mja sociala aktiviteter och gemenskap ombord?',
+        'q6_2':'',
+        'q6_3':'',
+        'q7_1':'Hur tycker du sta?mningen varit ombord mellan besa?ttningsmedlemmar?',
+        'q7_2':'',
+        'q7_3':'',
+        'q8_1':'Har du upplevt en gemenskap bland besa?ttningsmedlemmarna?',
+        'q8_2':'',
+        'q8_3':'',
+        'q9':'Har du upplevt ka?nslor av ensamhet och social isolering under tiden till sjo?ss?',
+        'q10':'Har upplevelsen av ensamhet varit mer pa?taglig under en speciell period av vistelsen ombord?',
+        'q11':'Har du na?gon ga?ng upplevt nedsta?mdhet under perioder ombord?',
+        'q12_1':'Hur har du upplevt arbetsbo?rdan ombord?',
+        'q12_2':'',
+        'q12_3':'',
+        'q13':'Upplever du att prestationsfo?rma?gan na?gon ga?ng pa?verkats negativt till fo?ljd av ensamhet?',
+        'q14':'Har du upplevt so?mnproblem till fo?ljd av ensamhet och social isolering?',
+        'q15':'Har du na?gra andra tankar, upplevelser eller funderingar som du kan bista? med som inte tas upp i enka?ten?'
+        }
     page = """
 <html>
     <head>
@@ -43,7 +73,7 @@ def start():
         <div id="page_row_2">
             <span>QUESTION ANSWERS:</span><br>
             <div class="div_line"></div><br>
-"""+''.join('<div id="'+qid+'">Question '+qid+':<br></div>' for qid in ['q1','q2','q3','q4_1','q4_2','q4_3','q5_1','q5_2','q5_3','q6_1','q6_2','q6_3','q7_1','q7_2','q7_3','q8_1','q8_2','q8_3','q9','q10','q11','q12_1','q12_2','q12_3','q13','q14','q15' ])+"""
+"""+''.join('<div id="'+qid+'">Question '+qid+':<br>'+qs2[qid]+'<br><br></div>' for qid in qs1)+"""
         </div>
         <div id="page_row_3">
             <span>SUMMARY STATISTICS:</span><br>
@@ -51,7 +81,7 @@ def start():
             Nothing here yet, tell me what you want!
         </div>
         <br>
-        <script src="static/js/d3/d3.js"></script>
+        <script src="static/js/d3/d3.js" charset=UTF8></script>
         <script src='static/js/oskar.js'></script>
     </body>
 </html>"""
