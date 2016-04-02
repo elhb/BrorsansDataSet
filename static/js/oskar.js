@@ -363,6 +363,26 @@ d3.csv("oskar_data.csv", function (data) {
                 .attr("y", function (d) { return y(d.y) } )
                 .attr("width", function (d) { return x(d.dx) } )
                 .attr("height", function (d) { return y(0) - y(d.y) } );
+
+        var bar_text_labels = canvas.append("g")
+            .selectAll("text")
+            .data(histogram)
+            .enter()
+            .append("text")
+                .text(function(d) {
+                    if (d.y > 0){
+                        return d.y;
+                        }
+                    else{
+                        return ""
+                    }
+                    })
+                .attr("x", function (d) { return x(d.x)+1 } )
+                .attr("y", function (d) { return Math.min(y(d.y)+15,height-7); } ) //y(d.count)+12
+                //.attr("text-anchor", "middle")
+                .attr("font-family", "sans-serif")
+                .attr("font-size", "12px")
+                .attr("fill", "Gainsboro");
             
         var brush = d3.svg.brush()
             .x(x)
@@ -375,7 +395,7 @@ d3.csv("oskar_data.csv", function (data) {
                 .attr("height", 300);
         
         // needed to do update: canvas, y, yAxis, y_axis_text_group, bins
-        return {"canvas":canvas, "y_scale":y, "yAxis":yAxis, "y_axis_text_group":y_axis_text_group, "brush":brush, "bins":bins}
+        return {"bar_text_labels":bar_text_labels, "canvas":canvas, "y_scale":y, "yAxis":yAxis, "y_axis_text_group":y_axis_text_group, "brush":brush, "bins":bins}
     }
     function updateChartNumbers(chart_info , filtered_data) {
             
@@ -400,7 +420,23 @@ d3.csv("oskar_data.csv", function (data) {
                 //.attr("x", function (d) { return x(d.x) } )
                 .attr("y", function (d) { return chart_info.y_scale(d.y) } )
                 //.attr("width", function (d) { return x(d.dx) } )
-                .attr("height", function (d) { return chart_info.y_scale(0) - chart_info.y_scale(d.y) } )
+                .attr("height", function (d) { return chart_info.y_scale(0) - chart_info.y_scale(d.y) } );
+                
+        chart_info.bar_text_labels
+            .data(histogram)
+            .transition()
+                .duration(1000)
+                //.text(function(d) {return d.y;})
+                //.attr("y", function (d) { return Math.min(chart_info.y_scale(d.count)+15,height-7); } );
+                .text(function(d) {
+                    if (d.y > 0){
+                        return d.y;
+                        }
+                    else{
+                        return ""
+                    }
+                    })
+                .attr("y", function (d) { return Math.min(chart_info.y_scale(d.y)+15,height-7); } ) //y(d.count)+12
     }
     function makeCategoryChart(data,divId,rotate) {
 
@@ -456,9 +492,23 @@ d3.csv("oskar_data.csv", function (data) {
                         d3.select(this).style("fill","black")
                     }
                     update()
-                })
+                });
         
-                // add x axis text
+        var bar_text_labels = canvas.append("g")
+            .selectAll("text")
+            .data(histogram)
+            .enter()
+            .append("text")
+                .text(function(d) {return d.count})
+                .attr("x", function (d) { return x(d.name)+barWidth/2 } )
+                .attr("y", function (d) { return Math.min(y(d.count)+15,height-7); } ) //y(d.count)+12
+                .attr("text-anchor", "middle")
+                .attr("font-family", "sans-serif")
+                .attr("font-size", "12px")
+                .attr("fill", "Gainsboro");
+
+        
+        // add x axis text
         var x_axis_text_group = canvas.append("g")
             .attr("transform","translate(0," + (height-move_down) + ")" )
             .style({ 'stroke': 'Black', 'fill': 'none', 'stroke-width': '1px'})
@@ -483,7 +533,7 @@ d3.csv("oskar_data.csv", function (data) {
                 .attr("x", 0)
         }
         
-        return {"canvas":canvas, "y_scale":y, "yAxis":yAxis, "y_axis_text_group":y_axis_text_group, "barWidth":barWidth, "filterVar":filterVar, "categories":getUniqStrings(data)}
+        return {"bar_text_labels":bar_text_labels,"canvas":canvas, "y_scale":y, "x_scale":x, "yAxis":yAxis, "y_axis_text_group":y_axis_text_group, "barWidth":barWidth, "filterVar":filterVar, "categories":getUniqStrings(data)}
     }
     function updateCategoryChart(data,chart_info) {
 
@@ -503,6 +553,14 @@ d3.csv("oskar_data.csv", function (data) {
                 .transition()
                     .duration(1000)
                     .attr("y", function (d) { return chart_info.y_scale(d.count) } )
-                    .attr("height", function (d) { return chart_info.y_scale(0) - chart_info.y_scale(d.count) } )
+                    .attr("height", function (d) { return chart_info.y_scale(0) - chart_info.y_scale(d.count) } );
+        
+        chart_info.bar_text_labels
+            .data(histogram)
+            .transition()
+                .duration(1000)
+                .text(function(d) {return d.count;console.log(d.count)})
+                .attr("y", function (d) { return Math.min(chart_info.y_scale(d.count)+15,height-7); } );
+        
     }
 })
