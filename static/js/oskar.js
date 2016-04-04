@@ -16,12 +16,13 @@ d3.csv("oskar_data.csv", function (data) {
     var sex_chart_info = makeCategoryChart(sex_map,"#sex",0)
     
     // create age chart
-    var age_map = data.map( function (i) { return parseInt(i.age); } );
-    var age_chart_info = makeChartNumbers(data,"age",d3.max(age_map),"#age")
+    var age_map = data.map( function (i) { return parseInt(i.age) || 0; } );
+    var age_chart_info = makeChartNumbers(age_map,d3.max(age_map),"#age")
 
     // create timeAtSea chart
-    var tas_bins = d3.max(data.map( function (i) { return parseInt(i["timeAtSea"]); } ))
-    var tas_chart_info = makeChartNumbers(data,"timeAtSea",tas_bins,"#timeatsea");
+    var tas_map = data.map( function (i) { return parseInt(i["timeAtSea"]) || 0; } );
+    var tas_bins = d3.max(tas_map)
+    var tas_chart_info = makeChartNumbers(tas_map,tas_bins,"#timeatsea");
     
     // create department chart
     var department_map = data.map( function (i) { return i.department; } );
@@ -52,8 +53,21 @@ d3.csv("oskar_data.csv", function (data) {
     var questions_chart_info = {}
     for (index in question_names) {
         qname = question_names[index]
-        tmp_map = data.map( function (i) { return parseInt(i[qname]); } );
-        questions_chart_info[qname] = makeChartNumbers(data,qname,d3.max(tmp_map)*2,"#"+qname)
+        tmp_map = data.map( function (i) { return parseInt(i[qname]) || 0; } );
+        questions_chart_info[qname] = makeChartNumbers(tmp_map,d3.max(tmp_map)*2,"#"+qname)
+    }
+    
+    // make the summary charts
+    var question_total_names = ["q4","q5","q6","q7","q8","q12"]
+    var questions_total_chart_info = {}
+    for (index in question_total_names) {
+        qname = question_total_names[index]
+        tmp_map = []
+        tmp_array = ["_1","_2","_3"]
+        for (index2 in tmp_array) {
+            tmp_map = tmp_map.concat( data.map( function (i) { return parseInt(i[qname+tmp_array[index2]]) || 0 } ) )
+        }
+        questions_total_chart_info[qname] = makeChartNumbers(tmp_map,d3.max(tmp_map)*2,"#"+qname+"_total")
     }
     
     function brushed() {
@@ -90,12 +104,12 @@ d3.csv("oskar_data.csv", function (data) {
 
         // filter and update age chart
         var filtered_data = filterData(data, "age" )
-        age_map = filtered_data.map( function (i) { return parseInt(i.age); } )
+        age_map = filtered_data.map( function (i) { return parseInt(i.age) || 0; } )
         updateChartNumbers(age_chart_info , age_map)
 
         // filter and update timeAtSea chart
         var filtered_data = filterData(data, "timeAtSea" )
-        tas_map = filtered_data.map( function (i) { return parseFloat(i.timeAtSea.replace(",",".")); })
+        tas_map = filtered_data.map( function (i) { return parseFloat(i.timeAtSea.replace(",",".")) || 0; })
         updateChartNumbers(tas_chart_info, tas_map)
 
         // filter and update department chart
@@ -134,10 +148,23 @@ d3.csv("oskar_data.csv", function (data) {
             qname = question_names[index]
             
             var filtered_data = filterData(data, qname )
-            map = filtered_data.map( function (i) { return parseInt(i[qname]); } )
+            map = filtered_data.map( function (i) { return parseInt(i[qname]) || 0; } )
             updateChartNumbers(questions_chart_info[qname] , map)
         }
 
+        // filter and update the summary charts
+        var question_total_names = ["q4","q5","q6","q7","q8","q12"]
+        for (index in question_total_names) {
+            qname = question_total_names[index]
+            
+            map  = []
+            tmp_array = ["_1","_2","_3"]
+            for (index2 in tmp_array) {
+                var filtered_data = filterData(data,"DONT_SKIP_FILTER")// qname+tmp_array[index2] )
+                map = map.concat( filtered_data.map( function (i) { return parseInt(i[qname+tmp_array[index2]]) || 0 } ) )
+            }
+            updateChartNumbers(questions_total_chart_info[qname] , map)
+        }        
 
     }
 
@@ -156,7 +183,7 @@ d3.csv("oskar_data.csv", function (data) {
     }
     function brushFilter(data,extent,prop) {
         //if ( age_chart_info.brush.extent()[0] !=  age_chart_info.brush.extent()[1]  ) { data = data.filter(function(i) { return parseInt(i.age) >= age_chart_info.brush.extent()[0] && parseInt(i.age) <= age_chart_info.brush.extent()[1]}) }
-        if ( extent[0] !=  extent[1]  ) { data = data.filter(function(i) { return parseInt(i[prop]) >= extent[0] && parseInt(i[prop]) <= extent[1]}) }
+        if ( extent[0] !=  extent[1]  ) { data = data.filter(function(i) { return (parseInt(i[prop]) || 0) >= extent[0] && (parseInt(i[prop]) || 0) <= extent[1]}) }
         return data
     }
     function filterData(data,skip) {
@@ -298,10 +325,11 @@ d3.csv("oskar_data.csv", function (data) {
     }
 
     // chart createion and updating
-    function makeChartNumbers(data,whatToPlot,numberOfBins,divId) {
+    //function makeChartNumbers(data,whatToPlot,numberOfBins,divId) {
+    function makeChartNumbers(data_map,numberOfBins,divId) {
 
         // get all the numbers as integers
-        var data_map = data.map( function (i) { return parseInt(i[whatToPlot]); } );
+        //var data_map = data.map( function (i) { return parseInt(i[whatToPlot]); } );
     
         // based on the values found define the bins so that there always are 100 bins
         var bin_width = d3.max(data_map)/numberOfBins;
